@@ -1,10 +1,11 @@
 pluginManagement {
     repositories {
-        maven { setUrl("https://maven.aliyun.com/nexus/content/groups/public/") }
+        maven { setUrl("https://maven.aliyun.com/repository/public/") }
+        maven { setUrl("https://maven.aliyun.com/repository/central") }
+        maven { setUrl("https://maven.aliyun.com/repository/gradle-plugin") }
         google()
         mavenCentral()
         gradlePluginPortal()
-        mavenCentral()
     }
 }
 dependencyResolutionManagement {

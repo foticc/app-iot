@@ -2,6 +2,7 @@ package com.example.navhostscreenapp
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.clickable
@@ -18,6 +19,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.key.Key.Companion.Home
@@ -36,6 +38,7 @@ import com.example.navhostscreenapp.page.ThreePage
 import com.example.navhostscreenapp.page.TwoPage
 import com.example.navhostscreenapp.ui.theme.NavhostScreenAppTheme
 import com.example.navhostscreenapp.ui.theme.Purple40
+import kotlin.math.log
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -107,6 +110,9 @@ fun BottomBar(navController: NavHostController) {
     )
     val currentBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = currentBackStackEntry?.destination?.route
+    if (currentRoute != null) {
+        Log.d("currentRoute", currentRoute)
+    }
     BottomAppBar {
         items.forEach {
             BottomNavigationItem(selected = currentRoute == it.route,
