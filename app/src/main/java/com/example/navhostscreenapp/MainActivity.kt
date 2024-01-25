@@ -5,11 +5,13 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.BottomAppBar
-import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -19,26 +21,26 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.key.Key.Companion.Home
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
 import com.example.navhostscreenapp.data.BottomItem
-import com.example.navhostscreenapp.page.Home
-import com.example.navhostscreenapp.page.ItemInfo
-import com.example.navhostscreenapp.page.ThreePage
-import com.example.navhostscreenapp.page.TwoPage
+import com.example.navhostscreenapp.ui.items.ItemInfo
+import com.example.navhostscreenapp.ui.page.Home
+import com.example.navhostscreenapp.ui.page.ScannerScreen
+import com.example.navhostscreenapp.ui.page.ThreePage
 import com.example.navhostscreenapp.ui.theme.NavhostScreenAppTheme
 import com.example.navhostscreenapp.ui.theme.Purple40
-import kotlin.math.log
+import com.example.navhostscreenapp.ui.unprocessed.UnProcessScreen
+import com.example.navhostscreenapp.ui.unprocessed.UnprocessedItem
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,7 +53,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                   App(navController)
+                    App(navController)
                 }
             }
         }
@@ -74,21 +76,27 @@ fun MainFrame(
     NavHost(
         modifier = modifier,
         navController = navController,
-        startDestination = "home"
+        startDestination = BottomItem.Home.route
     ) {
-        composable("scanner") {
-            TwoPage()
+        composable(BottomItem.Scanner.route) {
+            ScannerScreen()
         }
-        navigation(startDestination = "main", route = "home") {
-            composable("main") {
-                Home(navController)
-            }
-            composable("info") {
-                ItemInfo()
-            }
+        composable(BottomItem.Home.route) {
+//            Home(navController)
+            UnProcessScreen(navController)
         }
-        composable("collections") {
+
+//        navigation(startDestination = "main", route = "home") {
+//
+//            composable("info") {
+//                ItemInfo()
+//            }
+//        }
+        composable(BottomItem.Collections.route) {
             ThreePage()
+        }
+        composable("unprocessed") {
+            UnprocessedItem(navController)
         }
     }
 }
@@ -119,7 +127,12 @@ fun BottomBar(navController: NavHostController) {
                 icon = { Icon(imageVector = it.icon, contentDescription = it.title ) },
                 selectedContentColor = Purple40,
                 unselectedContentColor = Color.White,
-                onClick = { navController.navigate(it.route) }
+                onClick = {
+                    val route = navController.currentDestination?.route
+                    if (!route.equals(it.route)) {
+                        navController.navigate(it.route)
+                    }
+                }
             )
         }
     }
@@ -134,12 +147,21 @@ fun BottomBarItem(text:String) {
 
 
 
+@OptIn(ExperimentalLayoutApi::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     NavhostScreenAppTheme {
-        val navController = rememberNavController()
-        App(navController)
+        Box(modifier = Modifier.fillMaxSize()){
+            val int = 1
+            Text(text = "background", modifier = Modifier
+                .background(Color.LightGray)
+                .fillMaxSize())
+            Text(text = "button", modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(bottom = 20.dp))
+        }
+
     }
 }

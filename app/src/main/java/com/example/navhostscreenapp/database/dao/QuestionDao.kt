@@ -26,4 +26,7 @@ interface QuestionDao {
 
     @Query("SELECT * from question ORDER BY id desc")
     fun selectAll(): Flow<List<Question>>
+
+    @Query("SELECT * from question where context like '%'||:condition||'%' ORDER BY id desc")
+    fun selectAll(condition:String):Flow<List<Question>>
 }

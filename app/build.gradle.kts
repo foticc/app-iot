@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace = "com.example.navhostscreenapp"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.navhostscreenapp"
-        minSdk = 30
-        targetSdk = 33
+        minSdk = 28
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -60,6 +60,7 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
+    implementation("androidx.core:core-ktx:+")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -77,12 +78,35 @@ dependencies {
 
     implementation("androidx.compose.material:material:1.4.0")
 
-    val room_version = "2.4.2"
+    val room_version = "2.5.2"
 
     implementation("androidx.room:room-runtime:$room_version")
     kapt("androidx.room:room-compiler:$room_version")
     implementation("androidx.room:room-ktx:$room_version")
 
+    val camerax_version = "1.3.0"
+    implementation("androidx.camera:camera-core:${camerax_version}")
+    implementation("androidx.camera:camera-camera2:${camerax_version}")
+    implementation("androidx.camera:camera-lifecycle:${camerax_version}")
+    implementation("androidx.camera:camera-video:${camerax_version}")
+
+    implementation("androidx.camera:camera-view:${camerax_version}")
+    implementation("androidx.camera:camera-extensions:${camerax_version}")
+
+
+    implementation("com.google.accompanist:accompanist-permissions:0.32.0")
+
+    val text_recognition = "16.0.0"
+    implementation("com.google.mlkit:text-recognition:${text_recognition}")
+    implementation("com.google.mlkit:text-recognition-chinese:${text_recognition}")
+
+
+    val coil_version = "2.5.0"
+
+    implementation("io.coil-kt:coil-compose:$coil_version")
+
+
+    implementation("com.google.mlkit:entity-extraction:16.0.0-beta4")
 
 
 
