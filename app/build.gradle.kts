@@ -78,32 +78,32 @@ dependencies {
 
     implementation("androidx.compose.material:material:1.4.3")
 
-    val room_version = "2.5.2"
+    val roomVersion = "2.5.2"
 
-    implementation("androidx.room:room-runtime:$room_version")
-    kapt("androidx.room:room-compiler:$room_version")
-    implementation("androidx.room:room-ktx:$room_version")
+    implementation("androidx.room:room-runtime:$roomVersion")
+    kapt("androidx.room:room-compiler:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
 
-    val camerax_version = "1.3.0"
-    implementation("androidx.camera:camera-core:${camerax_version}")
-    implementation("androidx.camera:camera-camera2:${camerax_version}")
-    implementation("androidx.camera:camera-lifecycle:${camerax_version}")
-    implementation("androidx.camera:camera-video:${camerax_version}")
+    val cameraxVersion = "1.3.0"
+    implementation("androidx.camera:camera-core:${cameraxVersion}")
+    implementation("androidx.camera:camera-camera2:${cameraxVersion}")
+    implementation("androidx.camera:camera-lifecycle:${cameraxVersion}")
+    implementation("androidx.camera:camera-video:${cameraxVersion}")
 
-    implementation("androidx.camera:camera-view:${camerax_version}")
-    implementation("androidx.camera:camera-extensions:${camerax_version}")
+    implementation("androidx.camera:camera-view:${cameraxVersion}")
+    implementation("androidx.camera:camera-extensions:${cameraxVersion}")
 
 
     implementation("com.google.accompanist:accompanist-permissions:0.34.0")
 
-    val text_recognition = "16.0.0"
-    implementation("com.google.mlkit:text-recognition:${text_recognition}")
-    implementation("com.google.mlkit:text-recognition-chinese:${text_recognition}")
+    val textRecognition = "16.0.0"
+    implementation("com.google.mlkit:text-recognition:${textRecognition}")
+    implementation("com.google.mlkit:text-recognition-chinese:${textRecognition}")
 
 
-    val coil_version = "2.5.0"
+    val coilVersion = "2.5.0"
 
-    implementation("io.coil-kt:coil-compose:$coil_version")
+    implementation("io.coil-kt:coil-compose:$coilVersion")
 
 
     implementation("com.google.mlkit:entity-extraction:16.0.0-beta4")

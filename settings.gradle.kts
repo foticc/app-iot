@@ -17,6 +17,6 @@ dependencyResolutionManagement {
 }
 
 
-rootProject.name = "NavhostScreenApp"
+rootProject.name = "app-iot"
 include(":app")
  
