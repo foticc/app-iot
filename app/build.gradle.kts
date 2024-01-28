@@ -108,6 +108,10 @@ dependencies {
 
     implementation("com.google.mlkit:entity-extraction:16.0.0-beta4")
 
+    val lottieVersion = "6.3.0"
+    implementation("com.airbnb.android:lottie-compose:$lottieVersion")
+
+
 
 
 }
