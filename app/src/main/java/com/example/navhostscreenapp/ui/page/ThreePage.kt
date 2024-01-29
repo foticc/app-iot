@@ -39,7 +39,7 @@ import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModel
 import com.example.navhostscreenapp.text.EngineCollect
-import com.example.navhostscreenapp.ui.theme.NavhostScreenAppTheme
+import com.example.navhostscreenapp.ui.theme.AppiotTheme
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.Text
 import kotlinx.coroutines.launch
@@ -220,7 +220,7 @@ fun DrawScope.drawText(str:String,x:Float,y:Float,width: Int) {
 @Preview
 @Composable
 fun Demo() {
-    NavhostScreenAppTheme {
+    AppiotTheme {
         val rect = Rect(0, 0, 100, 100)
         Box(modifier = Modifier.fillMaxSize()) {
             Canvas(modifier = Modifier.fillMaxSize()) {

@@ -44,7 +44,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.navhostscreenapp.ui.items.DynamicsIcon
 import com.example.navhostscreenapp.ui.items.ItemInfo
-import com.example.navhostscreenapp.ui.theme.NavhostScreenAppTheme
+import com.example.navhostscreenapp.ui.theme.AppiotTheme
 
 /**
  * 关于嵌套导航
@@ -184,7 +184,7 @@ fun TopSearchBar(modifier: Modifier = Modifier, onChange: (String) -> Unit) {
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    NavhostScreenAppTheme {
+    AppiotTheme {
         TopSearchBar(onChange = {
             it
         })

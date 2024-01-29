@@ -1,5 +1,6 @@
 package com.example.navhostscreenapp.ui.login
 
+import android.net.InetAddresses
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -9,25 +10,16 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
-import androidx.compose.material.LocalContentAlpha
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AccountBox
+import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.Lock
-import androidx.compose.material.icons.rounded.AccountBox
-import androidx.compose.material.icons.rounded.AccountCircle
-import androidx.compose.material.icons.rounded.Lock
-import androidx.compose.material.rememberDrawerState
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -37,7 +29,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
@@ -46,11 +37,9 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.navhostscreenapp.R
-import com.example.navhostscreenapp.ui.unprocessed.ColumnItem
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.net.InetAddress
 
 
 @Preview
@@ -70,6 +59,13 @@ fun MainPage() {
 
     var loading by remember { mutableStateOf(false) }
 
+    var passwordVisualTransformation by remember {
+        mutableStateOf<VisualTransformation>(PasswordVisualTransformation())
+    }
+
+    var hasError by remember {
+        mutableStateOf(false)
+    }
 
     Column(
         modifier = Modifier
@@ -78,7 +74,7 @@ fun MainPage() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        LoginAnim(modifier = Modifier.height(280.dp))
+//        LoginAnim(modifier = Modifier.height(280.dp))
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             label = { Text(text = "username-i18n") },
@@ -90,17 +86,18 @@ fun MainPage() {
             },
             singleLine = true,
             value = username,
+            isError = hasError,
             onValueChange = { username = it })
         Spacer(modifier = Modifier.height(8.dp))
         OutlinedTextField(modifier = Modifier.fillMaxWidth(),
             label = { Text(text = "password-i18n") },
             singleLine = true,
             leadingIcon = { Icon(imageVector = Icons.Outlined.Lock, contentDescription = "USER") },
-            visualTransformation = PasswordVisualTransformation(),
+            visualTransformation = passwordVisualTransformation,
             trailingIcon = {
-                FaIcon(
-                    faIcon = FaIcons.EyeSlash,
-                    tint = LocalContentColor.current.copy(alpha = LocalContentAlpha.current),
+                Icon(
+                    imageVector = Icons.Outlined.Favorite,
+                    contentDescription = "show or hide password",
                     modifier = Modifier.clickable(onClick = {
                         passwordVisualTransformation =
                             if (passwordVisualTransformation != VisualTransformation.None) {
@@ -111,6 +108,7 @@ fun MainPage() {
                     })
                 )
             },
+            isError = hasError,
             value = password, onValueChange = {
                 password = it
             })
@@ -121,14 +119,15 @@ fun MainPage() {
             .fillMaxWidth()
             .padding(vertical = 16.dp)
             .background(MaterialTheme.colorScheme.primary)
-            .height(50.dp), onClick = {
-            loading = true
-            localCore.launch {
-                delay(1000)
-                loading = false
-            }
-
-        }) {
+            .height(50.dp),
+            onClick = {
+                loading = true
+                hasError = !inVaild(username, password)
+                localCore.launch {
+                    delay(1000)
+                    loading = false
+                }
+            }) {
             if (!loading) {
                 Text(
                     modifier = Modifier,
@@ -137,12 +136,19 @@ fun MainPage() {
 
                 )
             } else {
-                Text(text = "....", color = MaterialTheme.colorScheme.primaryContainer)
+                Text(text = "...", color = MaterialTheme.colorScheme.primaryContainer)
             }
         }
     }
 }
 
+fun inVaild(username: String, password: String): Boolean {
+    return username.isNotBlank() && password.isNotBlank();
+}
+
+fun getIpAddress(): String {
+    return InetAddress.getLocalHost().hostAddress;
+}
 
 @Composable
 fun LoginAnim(modifier: Modifier = Modifier) {

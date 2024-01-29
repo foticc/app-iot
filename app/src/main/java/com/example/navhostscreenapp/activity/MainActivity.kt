@@ -1,4 +1,4 @@
-package com.example.navhostscreenapp
+package com.example.navhostscreenapp.activity
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -31,13 +31,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navigation
 import com.example.navhostscreenapp.data.BottomItem
-import com.example.navhostscreenapp.ui.items.ItemInfo
-import com.example.navhostscreenapp.ui.page.Home
 import com.example.navhostscreenapp.ui.page.ScannerScreen
 import com.example.navhostscreenapp.ui.page.ThreePage
-import com.example.navhostscreenapp.ui.theme.NavhostScreenAppTheme
+import com.example.navhostscreenapp.ui.theme.AppiotTheme
 import com.example.navhostscreenapp.ui.theme.Purple40
 import com.example.navhostscreenapp.ui.unprocessed.UnProcessScreen
 import com.example.navhostscreenapp.ui.unprocessed.UnprocessedItem
@@ -46,7 +43,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            NavhostScreenAppTheme {
+            AppiotTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -152,7 +149,7 @@ fun BottomBarItem(text:String) {
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    NavhostScreenAppTheme {
+    AppiotTheme {
         Box(modifier = Modifier.fillMaxSize()){
             val int = 1
             Text(text = "background", modifier = Modifier
