@@ -114,6 +114,9 @@ dependencies {
     implementation("com.airbnb.android:lottie-compose:$lottieVersion")
 
 
+    implementation("org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.0.2")
+    implementation("org.eclipse.paho:org.eclipse.paho.android.service:1.0.2")
+
 
 
 }
