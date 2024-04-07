@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.navhostscreenapp"
+    namespace = "com.foticc.iot"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.navhostscreenapp"
+        applicationId = "com.foticc.iot"
         minSdk = 28
         targetSdk = 34
         versionCode = 1
