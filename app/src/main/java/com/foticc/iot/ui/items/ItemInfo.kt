@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.iot.R
+import com.foticc.iot.R
 
 @Preview(name = "static")
 @Composable

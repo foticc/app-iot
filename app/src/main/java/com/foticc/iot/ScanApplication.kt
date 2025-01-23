@@ -5,8 +5,11 @@ import android.widget.Toast
 import com.foticc.iot.database.AppDataBase
 import com.google.mlkit.nl.entityextraction.EntityExtraction
 import com.google.mlkit.nl.entityextraction.EntityExtractorOptions
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class ScanApplication:Application() {
+
 
     companion object {
         lateinit var dataBase: AppDataBase

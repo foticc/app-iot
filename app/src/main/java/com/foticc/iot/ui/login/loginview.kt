@@ -1,5 +1,7 @@
 package com.foticc.iot.ui.login
 
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -30,21 +32,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
-import com.example.iot.R
+import com.foticc.iot.R
+import com.foticc.iot.ScanApplication
+import com.foticc.iot.api.AuthApi
+import com.foticc.iot.api.HttpClient
+import com.foticc.iot.api.data.CommonResult
+import com.foticc.iot.api.data.UserPassword
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.net.InetAddress
 
 
-@Preview
 @Composable
-fun MainPage() {
-
+fun LoginPage() {
 
     val localCore = rememberCoroutineScope()
 
@@ -73,7 +76,7 @@ fun MainPage() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-//        LoginAnim(modifier = Modifier.height(280.dp))
+        LoginAnim(modifier = Modifier.height(280.dp))
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             label = { Text(text = "username-i18n") },
@@ -123,6 +126,7 @@ fun MainPage() {
                 loading = true
                 hasError = !inVaild(username, password)
                 localCore.launch {
+
                     delay(1000)
                     loading = false
                 }
@@ -145,8 +149,14 @@ fun inVaild(username: String, password: String): Boolean {
     return username.isNotBlank() && password.isNotBlank();
 }
 
-fun getIpAddress(): String {
-    return InetAddress.getLocalHost().hostAddress;
+suspend fun login() {
+    val userPassword = UserPassword("admin", "123456");
+    val post = HttpClient.create(AuthApi::class.java).post(userPassword);
+    if (post.code == 200) {
+
+    }else{
+
+    }
 }
 
 @Composable
